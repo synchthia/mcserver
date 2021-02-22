@@ -10,4 +10,4 @@ docker run --rm --name mc-lobby \
     -v $PWD/local/plugins:/app/plugins \
     -v $PWD/local/worlds:/app/worlds \
     --entrypoint /bin/bash \
-    -it startail/mcserver:plain
+    -it ghcr.io/synchthia/mcserver/plain:latest

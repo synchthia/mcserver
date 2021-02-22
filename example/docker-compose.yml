@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   minecraft:
-    image: startail/mcserver:plain
+    image: ghcr.io/synchthia/mcserver/plain:latest
     container_name: "minecraft"
     stdin_open: true
     tty: true
