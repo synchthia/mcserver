@@ -2,13 +2,6 @@
 set -e
 cd /app/server
 
-touch \
-    /app/config/bukkit.yml \
-    /app/config/commands.yml \
-    /app/config/spigot.yml \
-    /app/config/server.properties \
-    /app/config/paper.yml
-
 java \
     -Dcom.mojang.eula.agree=true \
     -jar /paper/paper.jar \
