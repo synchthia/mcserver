@@ -10,15 +10,22 @@ services:
     environment:
       TZ: "Asia/Tokyo"
       PORT: 25565
-
       # !!!
       # IF YOU WANT MOUNT VOLUMES,
       # UID/GID MUST BE Provide!!! (for directory / files permission)
       # !!!
-      UID: "1000"
-      GID: "1000"
+      UID: "${USER_ID:-0}"
+      GID: "${GROUP_ID:-0}"
     volumes:
-      - ./local/server:/app/server
-      - ./local/config:/app/config
-      - ./local/worlds:/app/worlds
-      - ./local/plugins:/app/plugins
+      - type: bind
+        source: ./local/server
+        target: /app/server
+      - type: bind
+        source: ./local/config
+        target: /app/config
+      - type: bind
+        source: ./local/worlds
+        target: /app/worlds
+      - type: bind
+        source: ./local/plugins
+        target: /app/plugins
