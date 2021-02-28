@@ -2,7 +2,7 @@
 set -e
 cd /app/server
 
-java \
+exec java \
     -Dcom.mojang.eula.agree=true \
     -jar /paper/paper.jar \
     --nogui \
