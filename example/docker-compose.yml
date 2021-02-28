@@ -10,13 +10,21 @@ services:
       - "25565:25565"
     environment:
       TZ: "Asia/Tokyo"
-      PORT: 25565
       # !!!
       # IF YOU WANT MOUNT VOLUMES,
       # UID/GID MUST BE Provide!!! (for directory / files permission)
       # !!!
       UID: "${USER_ID:-0}"
       GID: "${GROUP_ID:-0}"
+
+      # ===
+      # Bukkit configuration
+      # ===
+      SERVER_NAME: "server"
+      ONLINE_MODE: "true"
+      PORT: 25565
+      MAX_PLAYERS: 100
+
     volumes:
       - ./local/server:/app/server
       - ./local/config:/app/config
