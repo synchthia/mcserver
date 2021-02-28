@@ -3,7 +3,7 @@ services:
   minecraft:
     image: ghcr.io/synchthia/mcserver/plain:latest
     container_name: "minecraft"
-    restart: always
+    restart: on-failure
     stdin_open: true
     tty: true
     ports:
