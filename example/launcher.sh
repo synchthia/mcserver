@@ -21,11 +21,11 @@ function _stop() {
     docker-compose down
 }
 
-if [ "$1" = "" ]; then
-    echo "Usage: launcher <start|stop>"
-    exit 1
-elif [ "$1" = "start" ]; then
+if [ "$1" = "start" ]; then
     _start
 elif [ "$1" = "stop" ]; then
     _stop
+else
+    echo "Usage: launcher <start|stop>"
+    exit 1
 fi
