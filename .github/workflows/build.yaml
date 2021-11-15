@@ -32,4 +32,4 @@ jobs:
           context: ${{ matrix.name }}
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/{{ matrix.name }}:{{ env.MC_VERSION }}
+            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ env.MC_VERSION }}
