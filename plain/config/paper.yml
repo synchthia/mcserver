@@ -1,32 +1,31 @@
 # This is the main configuration file for Paper.
 # As you can see, there's tons to configure. Some options may impact gameplay, so use
 # with caution, and make sure you know what each option does before configuring.
-# 
+#
 # If you need help with the configuration or have any questions related to Paper,
 # join us in our Discord or IRC channel.
-# 
+#
 # Discord: https://discord.gg/papermc
-# IRC: #paper @ irc.esper.net ( https://webchat.esper.net/?channels=paper ) 
-# Website: https://papermc.io/ 
-# Docs: https://paper.readthedocs.org/ 
-
+# IRC: #paper @ irc.esper.net ( https://webchat.esper.net/?channels=paper )
+# Website: https://papermc.io/
+# Docs: https://paper.readthedocs.org/
 verbose: false
 config-version: 20
 timings:
-  enabled: true
+  enabled: false
   verbose: true
   server-name-privacy: false
   hidden-config-entries:
-  - database
-  - settings.bungeecord-addresses
-  - settings.velocity-support.secret
+    - database
+    - settings.bungeecord-addresses
+    - settings.velocity-support.secret
   history-interval: 300
   history-length: 3600
-  server-name: Unknown Server
+  server-name: "unknown"
 settings:
   load-permissions-yml-before-plugins: true
   region-file-cache-size: 256
-  enable-player-collisions: true
+  enable-player-collisions: false
   save-empty-scoreboard-teams: false
   bungee-online-mode: true
   incoming-packet-spam-threshold: 300
@@ -60,17 +59,11 @@ settings:
     allow-permanent-block-break-exploits: false
     allow-piston-duplication: false
     allow-headless-pistons: false
-    allow-permanent-block-break-exploits-readme: This setting controls if players
-      should be able to break bedrock, end portals and other intended to be permanent
-      blocks.
-    allow-piston-duplication-readme: This setting controls if player should be able
-      to use TNT duplication, but this also allows duplicating carpet, rails and potentially
-      other items
-    allow-headless-pistons-readme: This setting controls if players should be able
-      to create headless pistons.
+    allow-permanent-block-break-exploits-readme: This setting controls if players should be able to break bedrock, end portals and other intended to be permanent blocks.
+    allow-piston-duplication-readme: This setting controls if player should be able to use TNT duplication, but this also allows duplicating carpet, rails and potentially other items
+    allow-headless-pistons-readme: This setting controls if players should be able to create headless pistons.
 messages:
-  no-permission: '&cI''m sorry, but you do not have permission to perform this command.
-    Please contact the server administrators if you believe that this is in error.'
+  no-permission: '&cI''m sorry, but you do not have permission to perform this command.'
   kick:
     flying-player: Flying is not enabled on this server
     flying-vehicle: Flying is not enabled on this server
@@ -196,21 +189,21 @@ world-settings:
       lava-obscures: false
       use-permission: false
       hidden-blocks:
-      - gold_ore
-      - iron_ore
-      - coal_ore
-      - lapis_ore
-      - mossy_cobblestone
-      - obsidian
-      - chest
-      - diamond_ore
-      - redstone_ore
-      - clay
-      - emerald_ore
-      - ender_chest
+        - gold_ore
+        - iron_ore
+        - coal_ore
+        - lapis_ore
+        - mossy_cobblestone
+        - obsidian
+        - chest
+        - diamond_ore
+        - redstone_ore
+        - clay
+        - emerald_ore
+        - ender_chest
       replacement-blocks:
-      - stone
-      - oak_planks
+        - stone
+        - oak_planks
     alt-item-despawn-rate:
       enabled: false
       items:
@@ -234,10 +227,10 @@ world-settings:
       spawn-chance-max: 75
     door-breaking-difficulty:
       zombie:
-      - HARD
+        - HARD
       vindicator:
-      - NORMAL
-      - HARD
+        - NORMAL
+        - HARD
     entity-per-chunk-save-limit:
       experience_orb: -1
       snowball: -1

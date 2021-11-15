@@ -9,20 +9,19 @@
 # 
 # IRC: #spigot @ irc.spi.gt ( http://www.spigotmc.org/pages/irc/ )
 # Forums: http://www.spigotmc.org/
-
 config-version: 12
 commands:
   log: true
   tab-complete: 0
   send-namespaced: true
   spam-exclusions:
-  - /skill
+    - /skill
   silent-commandblock-console: false
   replace-commands:
-  - setblock
-  - summon
-  - testforblock
-  - tellraw
+    - setblock
+    - summon
+    - testforblock
+    - tellraw
 messages:
   whitelist: You are not whitelisted on this server!
   unknown-command: Unknown command. Type "/help" for help.
@@ -52,14 +51,14 @@ settings:
     attackDamage:
       max: 2048.0
 stats:
-  disable-saving: false
+  disable-saving: true
   forced-stats: {}
 advancements:
-  disable-saving: false
+  disable-saving: true
   disabled:
-  - minecraft:story/disabled
+    - minecraft:story/disabled
 players:
-  disable-saving: false
+  disable-saving: true
 world-settings:
   default:
     verbose: false

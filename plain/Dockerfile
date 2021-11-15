@@ -1,14 +1,14 @@
-FROM alpine:latest AS download_paper
+FROM docker.io/alpine:latest AS download_paper
 WORKDIR /paper
 
 RUN apk add --no-cache curl jq
 COPY utils/paper.sh /paper/
 
 # Download paper
-RUN sh /paper/paper.sh 1.16.5
+RUN sh /paper/paper.sh 1.17.1
 # ---
 # ---
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM docker.io/eclipse-temurin:16-alpine
 EXPOSE 25565
 ENV LANG en_US.UTF-8
 
@@ -17,20 +17,20 @@ ENV SERVER_NAME unknown
 ENV SERVER_ID unknown
 ENV WHITE_LIST false
 ENV ONLINE_MODE true
+ENV PORT 25565
 
 # Install paper
 COPY --from=download_paper /paper/paper.jar /paper/
 
 # Setup user
 RUN chmod u+s /bin/*
-RUN apk --no-cache add su-exec bash shadow
+RUN apk --no-cache add su-exec shadow yq
 
 # Copy Entry point
-COPY entrypoint.sh /entrypoint.sh
-COPY starter.sh /starter.sh
+COPY entrypoint.sh starter.sh autoconfig.sh /
 
 RUN addgroup -g 1000 app && \
-    adduser app -u 1000 -Ss /bin/bash -G app
+    adduser app -u 1000 -S -G app
 
 # Copy basements...
 COPY server/ /app/server/
@@ -40,5 +40,5 @@ COPY worlds/ /app/worlds/
 
 WORKDIR /app/server
 
-CMD ["bash", "/entrypoint.sh"]
+CMD ["sh", "/entrypoint.sh"]
 #CMD ["java", "-jar", "/paper/paper.jar", "-nogui"]
