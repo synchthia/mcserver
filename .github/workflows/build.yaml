@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: mcserver
+    permissions:
+      packages: write
+      contents: read
     strategy:
       fail-fast: false
       matrix:
