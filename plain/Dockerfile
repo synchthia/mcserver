@@ -5,7 +5,7 @@ RUN apk add --no-cache curl jq
 COPY utils/paper.sh /paper/
 
 # Download paper
-RUN sh /paper/paper.sh 1.17.1
+RUN sh /paper/paper.sh 1.18
 # ---
 # ---
 FROM docker.io/eclipse-temurin:16-alpine
