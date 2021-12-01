@@ -8,7 +8,7 @@ COPY utils/paper.sh /paper/
 RUN sh /paper/paper.sh 1.18
 # ---
 # ---
-FROM docker.io/eclipse-temurin:16-alpine
+FROM docker.io/eclipse-temurin:17-alpine
 EXPOSE 25565
 ENV LANG en_US.UTF-8
 
