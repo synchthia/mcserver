@@ -15,4 +15,4 @@ if [ $(id -u) = 0 ]; then
 fi
 
 chown ${UID:-app}:${GID:-app} -R /app/
-exec su-exec ${UID:-app} tmux new-s sh /starter.sh
+exec su-exec ${UID:-app} sh /starter.sh
