@@ -8,7 +8,7 @@ sh /autoconfig.sh
 
 echo "Starting server..."
 cd /app/server
-eval java \
+exec java \
     -Dcom.mojang.eula.agree=true \
     -jar /paper/paper.jar \
     --nogui \
