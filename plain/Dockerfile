@@ -24,7 +24,7 @@ COPY --from=download_paper /paper/paper.jar /paper/
 
 # Setup user
 RUN chmod u+s /bin/*
-RUN apk --no-cache add su-exec shadow yq
+RUN apk --no-cache add su-exec shadow yq tmux
 
 # Copy Entry point
 COPY entrypoint.sh starter.sh autoconfig.sh /
