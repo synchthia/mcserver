@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  MC_VERSION: 1.18
+  MC_VERSION: 1.18.1
 
 jobs:
   build:
