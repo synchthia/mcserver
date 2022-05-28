@@ -38,4 +38,5 @@ jobs:
           build-args: |
             PAPER_SPIGOT_VERSION=${{ env.MC_VERSION }}
           tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:latest
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ env.MC_VERSION }}
