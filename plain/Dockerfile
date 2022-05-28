@@ -1,11 +1,13 @@
 FROM docker.io/alpine:latest AS download_paper
 WORKDIR /paper
 
+ARG PAPER_SPIGOT_VERSION=latest
+
 RUN apk add --no-cache curl jq
 COPY utils/paper.sh /paper/
 
 # Download paper
-RUN sh /paper/paper.sh 1.18.1
+RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
 # ---
 # ---
 FROM docker.io/eclipse-temurin:17-alpine

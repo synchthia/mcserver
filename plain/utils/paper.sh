@@ -8,7 +8,12 @@ if [ "$VERSION" == "" ]; then
     exit 1
 fi
 
-echo ":: Retrieve latest builds..."
+if [ "$VERSION" == "latest" ]; then
+    VERSION=$(curl -fsSL https://papermc.io/api/v2/projects/paper/ | jq -cr '.versions | last')
+    echo ":: Use latest version: $VERSION"
+fi
+
+echo ":: Retrieve latest $VERSION builds..."
 BUILD=$(curl -fsSL https://papermc.io/api/v2/projects/paper/versions/$VERSION | jq '.builds | max')
 
 echo "-- Detected: $BUILD"
