@@ -5,9 +5,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  MC_VERSION: 1.18.2
-
 jobs:
   build:
     name: build
@@ -39,8 +36,8 @@ jobs:
           context: ${{ matrix.name }}
           push: true
           build-args: |
-            PAPER_SPIGOT_VERSION=${{ env.MC_VERSION }}
-            SERVER_VERSION=${{ env.MC_VERSION }}
+            PAPER_SPIGOT_VERSION=${{ matrix.version }}
+            SERVER_VERSION=${{ matrix.version }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:latest
-            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ env.MC_VERSION }}
+            ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ matrix.version }}
