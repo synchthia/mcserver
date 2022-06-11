@@ -22,6 +22,9 @@ jobs:
       matrix:
         include:
           - name: plain
+            version: "1.18.2"
+          - name: spigot
+            version: "1.19"
     steps:
       - uses: actions/checkout@v2
       - name: Login to GitHub Container Registry
@@ -37,6 +40,7 @@ jobs:
           push: true
           build-args: |
             PAPER_SPIGOT_VERSION=${{ env.MC_VERSION }}
+            SERVER_VERSION=${{ env.MC_VERSION }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:latest
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ env.MC_VERSION }}
