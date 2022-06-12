@@ -19,7 +19,7 @@ jobs:
       matrix:
         include:
           - name: plain
-            version: "1.18.2"
+            version: "1.19"
           - name: spigot
             version: "1.19"
     steps:
