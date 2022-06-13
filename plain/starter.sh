@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e
 
+# Make symbolic link (for compatibility)
+echo "Make link: worlds"
+cd /app/worlds
+for d in $(find . -mindepth 1 -maxdepth 1 -type d -printf '%P\n'); do
+    ln -sv ${PWD}/$d /app/server/$d
+done
+
+echo "Make link: config"
+cd /app/config
+for f in $(find . -mindepth 1 -maxdepth 1 -type f -printf '%P\n'); do
+    ln -sv ${PWD}/$f /app/server/$f
+done
+
 # Auto configuration
 echo "Running pre-configuration..."
 cd /app/config

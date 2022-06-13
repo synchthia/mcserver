@@ -40,6 +40,9 @@ COPY config/ /app/config/
 COPY plugins/ /app/plugins/
 COPY worlds/ /app/worlds/
 
+# Make symbolic link (for compatibility)
+RUN ln -sv /app/plugins/ /app/server/plugins
+
 WORKDIR /app/server
 
 CMD ["sh", "/entrypoint.sh"]
