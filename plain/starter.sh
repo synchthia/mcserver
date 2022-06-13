@@ -4,14 +4,14 @@ set -e
 # Make symbolic link (for compatibility)
 echo "Make link: worlds"
 cd /app/worlds
-for d in $(find . -mindepth 1 -maxdepth 1 -type d -printf '%P\n'); do
-    ln -sv ${PWD}/$d /app/server/$d
+for target in $(find . -mindepth 1 -maxdepth 1 | sed -e 's/\.\///'); do
+    ln -sfnv ${PWD}/${target} /app/server/${target}
 done
 
 echo "Make link: config"
 cd /app/config
-for f in $(find . -mindepth 1 -maxdepth 1 -type f -printf '%P\n'); do
-    ln -sv ${PWD}/$f /app/server/$f
+for target in $(find . -mindepth 1 -maxdepth 1 -type f | sed -e 's/\.\///'); do
+    ln -sfnv ${PWD}/${target} /app/server/${target}
 done
 
 # Auto configuration
