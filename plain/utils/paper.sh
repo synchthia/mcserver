@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-cd "$(dirname "$0")"
 
 VERSION="$1"
 if [ "$VERSION" == "" ]; then

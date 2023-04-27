@@ -94,15 +94,21 @@ else
     rewriteYAML "spigot.yml" ".stats.disable-saving" "true"
 fi
 
-echo "=> Rewrite paper.yml..."
-rewriteYAML "paper.yml" ".timings.enabled" "${ENABLE_TIMINGS:-false}"
-rewriteYAML "paper.yml" ".timings.server-name" "\"${SERVER_NAME:-unknown}\""
-rewriteYAML "paper.yml" ".settings.enable-player-collisions" "${PLAYER_COLLISIONS:-false}"
+echo "=> Rewrite paper-global.yml..."
+rewriteYAML "paper/paper-global.yml" ".timings.enabled" "${ENABLE_TIMINGS:-false}"
+rewriteYAML "paper/paper-global.yml" ".timings.server-name" "\"${SERVER_NAME:-unknown}\""
+rewriteYAML "paper/paper-global.yml" ".collisions.enable-player-collisions" "${PLAYER_COLLISIONS:-false}"
 
-if [ "${VELOCITY}" == "true" ]; then
-    rewriteYAML "paper.yml" ".settings.velocity-support.enabled" "true"
-    rewriteYAML "paper.yml" ".settings.velocity-support.online-mode" "true"
-    rewriteYAML "paper.yml" ".settings.velocity-support.secret" "\"${VELOCITY_SECRET}\""
+# BungeeCord
+if [ "${BUNGEECORD}" == "true" ]; then
+    rewriteYAML "paper/paper-global.yml" ".proxies.bungee-cord.online-mode" "true"
 fi
 
-rewriteYAML "paper.yml" ".messages.no-permission" "'&cI''m sorry, but you do not have permission to perform this command.'"
+# Velocity
+if [ "${VELOCITY}" == "true" ]; then
+    rewriteYAML "paper/paper-global.yml" ".proxies.velocity.enabled" "true"
+    rewriteYAML "paper/paper-global.yml" ".proxies.velocity.online-mode" "true"
+    rewriteYAML "paper/paper-global.yml" ".proxies.velocity.secret" "\"${VELOCITY_SECRET}\""
+fi
+
+#rewriteYAML "paper/paper-global.yml" ".messages.no-permission" "'&cI''m sorry, but you do not have permission to perform this command.'"
