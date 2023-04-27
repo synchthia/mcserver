@@ -19,9 +19,9 @@ jobs:
       matrix:
         include:
           - name: plain
-            version: "1.19"
+            version: "1.19.4"
           - name: spigot
-            version: "1.19"
+            version: "1.19.4"
     steps:
       - uses: actions/checkout@v2
       - name: Login to GitHub Container Registry
