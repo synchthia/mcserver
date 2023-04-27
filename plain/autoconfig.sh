@@ -15,7 +15,7 @@ rewriteSettings() {
     if [ $(echo -ne "$key" | grep "secret") ]; then
         _display_value="<SECRET>"
     else
-        _display_value="${key}"
+        _display_value="${value}"
     fi
 
     if grep "${key}" "$TARGET" > /dev/null; then
