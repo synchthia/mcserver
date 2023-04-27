@@ -12,11 +12,17 @@ rewriteSettings() {
         return 0
     fi
 
+    if [ $(echo -ne "$key" | grep "secret") ]; then
+        _display_value="<SECRET>"
+    else
+        _display_value="${key}"
+    fi
+
     if grep "${key}" "$TARGET" > /dev/null; then
-        echo "- Overwrite settings: (${key}: ${value})"
+        echo "- Overwrite settings: (${key}: ${_display_value})"
         sed -i "/^${key}\s*=/ c ${key}=${value//\\/\\\\}" "$TARGET"
     else
-        echo "- Append settings: (${key}: ${value})"
+        echo "- Append settings: (${key}: ${_display_value})"
         echo "${key}=${value}" >> "$TARGET"
     fi
 }
@@ -36,7 +42,12 @@ rewriteYAML() {
         return 0
     fi
 
-    echo "- Update yaml: (${key}: ${value})"
+    if [ $(echo -ne "$key" | grep "secret") ]; then
+        echo "- Update yaml: (${key}: <SECRET>)"
+    else
+        echo "- Update yaml: (${key}: ${value})"
+    fi
+
     yq e -i "${key} = ${value}" $TARGET
 }
 
