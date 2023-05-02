@@ -10,7 +10,7 @@ COPY utils/paper.sh /paper/
 RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
 # ---
 # ---
-FROM docker.io/eclipse-temurin:17-alpine
+FROM docker.io/eclipse-temurin:17
 EXPOSE 25565
 ENV LANG en_US.UTF-8
 
@@ -25,14 +25,21 @@ ENV PORT 25565
 COPY --from=download_paper /paper/paper.jar /paper/
 
 # Setup user
-RUN chmod u+s /bin/* && \
-    apk --no-cache add su-exec shadow yq
+# RUN chmod u+s /bin/* && \
+#     apk --no-cache add su-exec shadow yq
+
+RUN apt-get update -qq && \
+    apt-get install -y gosu && \
+    apt-get clean
+
+RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.33.3/yq_linux_amd64 && \
+    chmod a+x /usr/local/bin/yq
 
 # Copy Entry point
 COPY entrypoint.sh launcher.sh autoconfig.sh /
 
-RUN addgroup -g 1000 app && \
-    adduser app -u 1000 -S -G app
+RUN addgroup --gid 1000 app && \
+    useradd app --uid 1000 -g app -s /bin/bash
 
 # Copy basements...
 COPY templates/ /app/templates/
@@ -48,5 +55,5 @@ RUN mkdir -p \
 
 WORKDIR /app/server
 
-CMD ["sh", "/entrypoint.sh"]
+CMD ["bash", "/entrypoint.sh"]
 #CMD ["java", "-jar", "/paper/paper.jar", "-nogui"]

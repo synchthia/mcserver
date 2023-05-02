@@ -57,7 +57,7 @@ _task_start() {
     # Auto configuration
     echo "Running pre-configuration..."
     cd /app/config
-    sh /autoconfig.sh
+    bash /autoconfig.sh
 
     echo "Starting server..."
     cd /app/server
