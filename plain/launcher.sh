@@ -26,6 +26,10 @@ _task_prepare() {
         for target in $(find . -mindepth 1 -maxdepth 1 | sed -e 's/\.\///'); do
             ln -sfnv ${PWD}/${target} /app/server/${target}
         done
+
+        # plugins
+        echo "Make link: plugins"
+        ln -sfnv /app/plugins /app/server/plugins
     }
 
     _template() {
