@@ -12,6 +12,10 @@ RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
 # ---
 FROM docker.io/eclipse-temurin:17
 EXPOSE 25565
+ARG TARGETPLATFORM
+ARG TARGETOS
+ARG TARGETARCH
+
 ENV LANG en_US.UTF-8
 
 # Config
@@ -32,7 +36,7 @@ RUN apt-get update -qq && \
     apt-get install -y gosu && \
     apt-get clean
 
-RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_linux_amd64 && \
+RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_${TARGETOS}_${TARGETARCH} && \
     chmod a+x /usr/local/bin/yq
 
 # Copy Entry point
