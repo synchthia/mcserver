@@ -10,7 +10,7 @@ COPY utils/paper.sh /paper/
 RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
 # ---
 # ---
-FROM docker.io/eclipse-temurin:17
+FROM docker.io/eclipse-temurin:21
 EXPOSE 25565
 ARG TARGETPLATFORM
 ARG TARGETOS
