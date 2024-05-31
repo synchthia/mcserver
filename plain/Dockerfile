@@ -36,7 +36,7 @@ RUN apt-get update -qq && \
     apt-get install -y gosu && \
     apt-get clean
 
-RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_${TARGETOS}_${TARGETARCH} && \
+RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_${TARGETOS}_${TARGETARCH} && \
     chmod a+x /usr/local/bin/yq
 
 # Copy Entry point
