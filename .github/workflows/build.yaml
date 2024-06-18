@@ -19,7 +19,7 @@ jobs:
       matrix:
         include:
           - name: plain
-            version: "1.20.6"
+            version: "1.21"
     steps:
       - uses: actions/checkout@v2
       - name: Login to GitHub Container Registry
