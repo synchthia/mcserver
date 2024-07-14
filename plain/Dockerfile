@@ -1,20 +1,28 @@
-FROM docker.io/alpine:latest AS download_paper
-WORKDIR /paper
+FROM docker.io/alpine:latest AS download_assets
 
 ARG PAPER_SPIGOT_VERSION=latest
+ARG TARGETPLATFORM
+ARG TARGETOS
+ARG TARGETARCH
 
 RUN apk add --no-cache curl jq
 COPY utils/paper.sh /paper/
 
+# Download tools
+WORKDIR /tmp
+RUN wget -O packy.tar.gz https://github.com/synchthia/packy/releases/latest/download/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
+    tar -xvzf ./packy.tar.gz && \
+    wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
+    chmod +x yq
+
 # Download paper
+WORKDIR /paper
 RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
+
 # ---
 # ---
 FROM docker.io/eclipse-temurin:21
 EXPOSE 25565
-ARG TARGETPLATFORM
-ARG TARGETOS
-ARG TARGETARCH
 
 ENV LANG en_US.UTF-8
 
@@ -25,8 +33,11 @@ ENV WHITE_LIST false
 ENV ONLINE_MODE true
 ENV PORT 25565
 
+# Install assets
+COPY --from=download_assets /tmp/packy /tmp/yq /usr/local/bin/
+
 # Install paper
-COPY --from=download_paper /paper/paper.jar /paper/
+COPY --from=download_assets /paper/paper.jar /paper/
 
 # Setup user
 # RUN chmod u+s /bin/* && \
@@ -35,9 +46,6 @@ COPY --from=download_paper /paper/paper.jar /paper/
 RUN apt-get update -qq && \
     apt-get install -y gosu && \
     apt-get clean
-
-RUN curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.1/yq_${TARGETOS}_${TARGETARCH} && \
-    chmod a+x /usr/local/bin/yq
 
 # Copy Entry point
 COPY entrypoint.sh launcher.sh autoconfig.sh /
