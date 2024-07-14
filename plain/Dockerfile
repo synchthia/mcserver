@@ -24,14 +24,14 @@ RUN sh /paper/paper.sh $PAPER_SPIGOT_VERSION
 FROM docker.io/eclipse-temurin:21
 EXPOSE 25565
 
-ENV LANG en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 # Config
-ENV SERVER_NAME unknown
-ENV SERVER_ID unknown
-ENV WHITE_LIST false
-ENV ONLINE_MODE true
-ENV PORT 25565
+ENV SERVER_NAME=unknown
+ENV SERVER_ID=unknown
+ENV WHITE_LIST=false
+ENV ONLINE_MODE=true
+ENV PORT=25565
 
 # Install assets
 COPY --from=download_assets /tmp/packy /tmp/yq /usr/local/bin/
