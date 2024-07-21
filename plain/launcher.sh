@@ -52,7 +52,7 @@ _task_prepare() {
 
     _fetch() {
         if [ "$USE_PACKY" ]; then
-            packy fetch -s "global,${SERVER_NAME}" -d /app/plugins
+            packy fetch -s "${PACKY_NAMESPACES:-bukkit_global}" -d /app/plugins
         fi
     }
 
