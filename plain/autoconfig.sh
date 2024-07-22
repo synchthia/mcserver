@@ -31,6 +31,15 @@ rewriteYAML() {
     local TARGET="$1"
     local key=$2
     local value=$3
+    local style=""
+
+    if [ "${value:0:1}" == "\"" ]; then
+        style="double"
+    fi
+
+    if [ "${value:0:1}" == "'" ]; then
+        style="single"
+    fi
 
     if [ "$value" == "" ]; then
         [ "$DEBUG" != "" ] && echo "!! ${key} env has not provided. ignoring..."
@@ -48,7 +57,8 @@ rewriteYAML() {
         echo "- Update yaml: (${key}: ${value})"
     fi
 
-    yq e -i "${key} = ${value}" $TARGET
+
+    yq e -i "with(${key} ; . = ${value} | . style=\"${style}\")" $TARGET
 }
 
 
@@ -116,8 +126,8 @@ if [ "${BUNGEECORD}" == "true" ]; then
 fi
 
 # Velocity
+rewriteYAML "paper/paper-global.yml" ".proxies.velocity.enabled" "${VELOCITY}"
 if [ "${VELOCITY}" == "true" ]; then
-    rewriteYAML "paper/paper-global.yml" ".proxies.velocity.enabled" "true"
     rewriteYAML "paper/paper-global.yml" ".proxies.velocity.online-mode" "true"
     rewriteYAML "paper/paper-global.yml" ".proxies.velocity.secret" "\"${VELOCITY_SECRET}\""
 fi
