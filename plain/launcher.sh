@@ -40,7 +40,7 @@ _task_prepare() {
         # config
         cd ./config
         for target in $(find . -mindepth 1 -maxdepth 1 | sed -e 's/\.\///'); do
-            cp -TRpnv ${PWD}/${target} /app/config/${target}
+            cp --update=none -TRpv ${PWD}/${target} /app/config/${target}
         done
 
         # plugins
