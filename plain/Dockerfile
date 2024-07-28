@@ -50,7 +50,8 @@ RUN apt-get update -qq && \
 # Copy Entry point
 COPY entrypoint.sh launcher.sh autoconfig.sh /
 
-RUN useradd app --uid 7000 -U -s /bin/bash
+RUN userdel -rf $(cat /etc/passwd | grep 1000 | cut -d ':' -f 1) && \
+    useradd app --uid 1000 -U -s /bin/bash
 
 # Copy basements...
 COPY templates/ /app/templates/
