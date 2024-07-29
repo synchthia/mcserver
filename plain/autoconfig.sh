@@ -61,6 +61,25 @@ rewriteYAML() {
     yq e -i "with(${key} ; . = ${value} | . style=\"${style}\")" $TARGET
 }
 
+rewriteGlobal() {
+    cd /app
+
+    echo "=> Rewrite parameters..."
+
+    for f in $(find . -mindepth 1 -type f \
+        -and -name '*.yaml' \
+        -or -name '*.yml' \
+        -or -name '*.json' \
+        -or -name '*.txt' \
+        -or -name '*.ini' \
+        -or -name '*.conf' \
+        -or -name '*.config' \
+        -or -name '*.properties' \
+    ); do
+        sed -i $f -e "s/!!SERVER_ID!!/${SERVER_ID}/g"
+        sed -i $f -e "s/!!SERVER_NAME!!/${SERVER_NAME}/g"
+    done
+}
 
 echo "=> Rewrite settings..."
 rewriteSettings "announce-player-achievements" "${NOTIFY_ACHIEVEMENTS}"
@@ -133,3 +152,5 @@ if [ "${VELOCITY}" == "true" ]; then
 fi
 
 #rewriteYAML "paper/paper-global.yml" ".messages.no-permission" "'&cI''m sorry, but you do not have permission to perform this command.'"
+
+rewriteGlobal
