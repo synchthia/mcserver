@@ -15,4 +15,5 @@ if [ $(id -u) = 0 ]; then
 fi
 
 chown ${UID:-app}:${GID:-app} /app/
+chown ${UID:-app}:${GID:-app} -Rv /app/templates
 exec gosu ${UID:-app} bash /launcher.sh start
