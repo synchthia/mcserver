@@ -16,4 +16,5 @@ fi
 
 chown ${UID:-app}:${GID:-app} /app/
 chown ${UID:-app}:${GID:-app} -Rv /app/templates
+chown ${UID:-app}:${GID:-app} -Rv /app/worlds
 exec gosu ${UID:-app} bash /launcher.sh start
