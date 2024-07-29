@@ -14,7 +14,7 @@ if [ $(id -u) = 0 ]; then
     fi
 fi
 
-chown ${UID:-app}:${GID:-app} /app/
-chown ${UID:-app}:${GID:-app} -Rv /app/templates
-chown ${UID:-app}:${GID:-app} -Rv /app/worlds
+for d in $(find /app -mindepth 1 -maxdepth 1 -type d); do
+    chown ${UID:-app}:${GID:-app} -v $d
+done
 exec gosu ${UID:-app} bash /launcher.sh start
