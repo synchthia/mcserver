@@ -14,5 +14,5 @@ if [ $(id -u) = 0 ]; then
     fi
 fi
 
-chown ${UID:-app}:${GID:-app} -R /app/
+chown ${UID:-app}:${GID:-app} /app/
 exec gosu ${UID:-app} bash /launcher.sh start
