@@ -62,7 +62,7 @@ rewriteYAML() {
 }
 
 rewriteGlobal() {
-    cd /app
+    local TARGET="$1"
 
     echo "=> Rewrite parameters..."
 
@@ -153,4 +153,5 @@ fi
 
 #rewriteYAML "paper/paper-global.yml" ".messages.no-permission" "'&cI''m sorry, but you do not have permission to perform this command.'"
 
-rewriteGlobal
+rewriteGlobal "/app/config"
+rewriteGlobal "/app/plugins"
