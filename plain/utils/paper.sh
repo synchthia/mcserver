@@ -47,7 +47,7 @@ fi
 
 if [ "$PAPERMC_URL" != "null" ]; then
     # Download the latest Paper version
-    curl -o server.jar $PAPERMC_URL
+    curl -o paper.jar $PAPERMC_URL
     echo "Download completed (version: $FOUND_VERSION)"
 else
     echo "No stable builds available for any version :("
