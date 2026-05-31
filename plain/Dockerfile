@@ -5,13 +5,17 @@ ARG TARGETPLATFORM
 ARG TARGETOS
 ARG TARGETARCH
 
-RUN apk add --no-cache curl jq
+RUN apk add --no-cache curl git go jq
 COPY utils/paper.sh /paper/
 
 # Download tools
 WORKDIR /tmp
-RUN wget -O packy.tar.gz https://github.com/synchthia/packy/releases/latest/download/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
-    tar -xvzf ./packy.tar.gz && \
+RUN if [ "$TARGETARCH" = "arm64" ]; then \
+        CGO_ENABLED=0 GOBIN=/tmp go install github.com/synchthia/packy@latest; \
+    else \
+        wget -O packy.tar.gz https://github.com/synchthia/packy/releases/latest/download/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
+        tar -xvzf ./packy.tar.gz; \
+    fi && \
     wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
     chmod +x yq
 
