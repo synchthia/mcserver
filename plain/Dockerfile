@@ -1,3 +1,18 @@
+FROM docker.io/alpine:latest AS packy-builder
+
+ARG TARGETOS
+ARG TARGETARCH
+ARG PACKY_VERSION=v0.0.5
+
+RUN apk add --no-cache curl go git
+WORKDIR /tmp
+RUN if [ "$TARGETARCH" = "arm64" ]; then \
+        CGO_ENABLED=0 GOBIN=/tmp go install github.com/synchthia/packy@${PACKY_VERSION}; \
+    else \
+        wget -O packy.tar.gz https://github.com/synchthia/packy/releases/download/${PACKY_VERSION}/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
+        tar -xvzf ./packy.tar.gz; \
+    fi
+
 FROM docker.io/alpine:latest AS download_assets
 
 ARG PAPER_SPIGOT_VERSION=latest
@@ -5,18 +20,13 @@ ARG TARGETPLATFORM
 ARG TARGETOS
 ARG TARGETARCH
 
-RUN apk add --no-cache curl git go jq
+RUN apk add --no-cache curl jq
 COPY utils/paper.sh /paper/
 
 # Download tools
 WORKDIR /tmp
-RUN if [ "$TARGETARCH" = "arm64" ]; then \
-        CGO_ENABLED=0 GOBIN=/tmp go install github.com/synchthia/packy@latest; \
-    else \
-        wget -O packy.tar.gz https://github.com/synchthia/packy/releases/latest/download/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
-        tar -xvzf ./packy.tar.gz; \
-    fi && \
-    wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
+COPY --from=packy-builder /tmp/packy /tmp/packy
+RUN wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
     chmod +x yq
 
 # Download paper
