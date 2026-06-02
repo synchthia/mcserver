@@ -41,7 +41,7 @@ jobs:
           build-args: |
             PAPER_SPIGOT_VERSION=${{ matrix.version }}
             SERVER_VERSION=${{ matrix.version }}
-            PACKY_VERSION=v0.0.5
+            PACKY_VERSION=v0.0.6
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:latest
             ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}/${{ matrix.name }}:${{ matrix.version }}

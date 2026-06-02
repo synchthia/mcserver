@@ -2,16 +2,12 @@ FROM docker.io/alpine:latest AS packy-builder
 
 ARG TARGETOS
 ARG TARGETARCH
-ARG PACKY_VERSION=v0.0.5
+ARG PACKY_VERSION=v0.0.6
 
-RUN apk add --no-cache curl go git
+RUN apk add --no-cache curl
 WORKDIR /tmp
-RUN if [ "$TARGETARCH" = "arm64" ]; then \
-        CGO_ENABLED=0 GOBIN=/tmp go install github.com/synchthia/packy@${PACKY_VERSION}; \
-    else \
-        wget -O packy.tar.gz https://github.com/synchthia/packy/releases/download/${PACKY_VERSION}/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
-        tar -xvzf ./packy.tar.gz; \
-    fi
+RUN wget -O packy.tar.gz https://github.com/synchthia/packy/releases/download/${PACKY_VERSION}/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
+    tar -xvzf ./packy.tar.gz
 
 FROM docker.io/alpine:latest AS download_assets
 
