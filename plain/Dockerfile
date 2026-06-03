@@ -1,3 +1,14 @@
+FROM docker.io/alpine:latest AS packy-builder
+
+ARG TARGETOS
+ARG TARGETARCH
+ARG PACKY_VERSION=v0.0.6
+
+RUN apk add --no-cache curl
+WORKDIR /tmp
+RUN wget -O packy.tar.gz https://github.com/synchthia/packy/releases/download/${PACKY_VERSION}/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
+    tar -xvzf ./packy.tar.gz
+
 FROM docker.io/alpine:latest AS download_assets
 
 ARG PAPER_SPIGOT_VERSION=latest
@@ -10,9 +21,8 @@ COPY utils/paper.sh /paper/
 
 # Download tools
 WORKDIR /tmp
-RUN wget -O packy.tar.gz https://github.com/synchthia/packy/releases/latest/download/packy_${TARGETOS}_${TARGETARCH}.tar.gz && \
-    tar -xvzf ./packy.tar.gz && \
-    wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
+COPY --from=packy-builder /tmp/packy /tmp/packy
+RUN wget -O yq https://github.com/mikefarah/yq/releases/latest/download/yq_${TARGETOS}_${TARGETARCH} && \
     chmod +x yq
 
 # Download paper
